@@ -56,7 +56,7 @@ envstruct *insert_end(envstruct *head, char *key, char *value);
 char *get_value(envstruct *head, char *key);
 int print_all(envstruct *head);
 int remove_value(envstruct **head, char *key);
-void free_list(envstruct *head);
+void free_list(envstruct **head);
 
 typedef void (*sighandler_t)(int);
 
