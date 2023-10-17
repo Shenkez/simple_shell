@@ -1,7 +1,4 @@
 #include "main.h"
-int main(void);
-
-char *lineptr = NULL;
 
 /**
  * main - Entrance to program
@@ -10,6 +7,7 @@ char *lineptr = NULL;
  */
 int main(void)
 {
+	char *lineptr = NULL;
 	atexit(clean_up);
 	signal(SIGINT, sig_int_handler);
 
@@ -62,43 +60,6 @@ label:
 	}
 	return (0);
 }
-
-
-/**
- * _getline - Get line conditions
- *
- * Return: Characters from stdin
- */
-char *_getline(void)
-{
-	size_t numbytes = 0, newnumbytes;
-	ssize_t linelen;
-
-	linelen = getline(&lineptr, &numbytes, stdin);
-
-	if (linelen == -1)
-	{
-		if (feof(stdin))
-		{
-			if (isatty(fileno(stdin)))
-			{
-				write(1, "\n", 1);
-			}
-			exit(0);
-		}
-		perror("");
-		exit(1);
-	}
-
-	newnumbytes = strcspn(lineptr, "\n");
-
-	if (lineptr[newnumbytes] == '\n')
-		lineptr[newnumbytes] = '\0';
-
-	return (lineptr);
-}
-
-
 /**
  * is_builtin_cmd - checks for lists of built-in command
  * @cmd: the command checked
@@ -159,6 +120,44 @@ void exec_builtin_cmd(char **argv, envstruct *head)
 }
 
 /**
+ * _getline - Get line conditions
+ *
+ * Return: Characters from stdin
+ */
+char *_getline(void)
+{
+	char *lineptr = NULL;
+	size_t numbytes = 0, newnumbytes;
+	ssize_t linelen;
+
+	linelen = getline(&lineptr, &numbytes, stdin);
+
+	if (linelen == -1)
+	{
+		if (feof(stdin))
+		{
+			if (isatty(fileno(stdin)))
+			{
+				write(1, "\n", 1);
+			}
+			exit(0);
+		}
+		perror("");
+		exit(1);
+	}
+
+	newnumbytes = our_strcspn(lineptr, "\n");
+
+	if (lineptr[newnumbytes] == '\n')
+		lineptr[newnumbytes] = '\0';
+
+	return (lineptr);
+}
+
+
+
+
+/**
  * exec_executable_cmd - execute the executable commands
  * @cmd: command
  * @argv: argument variable
@@ -202,14 +201,4 @@ void exec_executable_cmd(char *cmd, char **argv, char **envp)
 	}
 }
 
-/**
- * exit_cmd - exits/terminates the shell
- * @exit_code: exit status code
- *
- * Return: void
- */
-void exit_cmd(int exit_code)
-{
-	exit(exit_code);
-}
 

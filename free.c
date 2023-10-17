@@ -8,6 +8,7 @@
  */
 void clean_up(void)
 {
+	char *lineptr = NULL;
 	if (lineptr != NULL)
 		free(lineptr);
 }
