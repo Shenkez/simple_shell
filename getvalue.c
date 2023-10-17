@@ -11,7 +11,7 @@ char *get_value(envstruct *head, char *key)
 
   while (curr != NULL)
     {
-      if (strcmp(curr->key, key) == 0)
+      if (our_strcmp(curr->key, key) == 0)
 	{
 	  return (curr->value);
 	}

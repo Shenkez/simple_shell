@@ -30,18 +30,15 @@ typedef struct env_var
 
 extern char **environ;
 extern char *lineptr;
-
+int our_strcmp(const char *str1, const char *str2);
 void exit_cmd(int);
 void env_cmd(void);
-
 void setenv_cmd(char **argv, envstruct *head);
 void unsetenv_cmd(char **argv, envstruct *head);
 int cd_cmd(char **argv);
-
 void exec_builtin_cmd(char **argv, envstruct *head);
 void exec_executable_cmd(char *cmd, char **argv, char **env);
-
-
+size_t our_strcspn(const char *str1, const char *str2);
 char *_getline(void);
 int is_builtin_cmd(char *cmd);
 char *_getenv(char *name);
@@ -56,10 +53,8 @@ envstruct *insert_end(envstruct *head, char *key, char *value);
 char *get_value(envstruct *head, char *key);
 int print_all(envstruct *head);
 int remove_value(envstruct **head, char *key);
-void free_list(envstruct *head);
-
+void free_list(envstruct **head);
 typedef void (*sighandler_t)(int);
-
 void clean_up(void);
 void sig_int_handler(int signum);
 
