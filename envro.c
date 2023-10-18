@@ -1,5 +1,13 @@
 #include "main.h"
 
+/**
+ * insert_end - putting a node at end of list
+ * @head: list root
+ * @key: key of list
+ * @value: Value to add
+ *
+ * Return: Pointer to head of list
+ */
 
 envstruct *insert_end(envstruct *head, char *key, char *value)
 {
