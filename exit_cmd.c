@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * exit_cmd - exits/terminates the shell
+ * exit_cmd - terminates the shell program
  * @exit_code: exit status code
  *
  * Return: void

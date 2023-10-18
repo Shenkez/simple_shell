@@ -1,22 +1,30 @@
 #include "main.h"
+/**
+ * get_value - gets value of env var
+ * @head: head variable
+ * @key: value variable
+ *
+ * Return: NULL
+*/
 
 char *get_value(envstruct *head, char *key)
 {
-  envstruct *curr = head;
+	envstruct *curr = head;
 
-  if (head == NULL || key == NULL)
-    {
-      return (NULL);
-    }
-
-  while (curr != NULL)
-    {
-      if (our_strcmp(curr->key, key) == 0)
+	if (head == NULL || key == NULL)
 	{
-	  return (curr->value);
+		return (NULL);
 	}
-      curr = curr->next;
-    }
 
-  return (NULL);
+	while (curr != NULL)
+	{
+		if (our_strcmp(curr->key, key) == 0)
+		{
+			return (curr->value);
+		}
+
+		curr = curr->next;
+	}
+
+	return (NULL);
 }

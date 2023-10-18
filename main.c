@@ -8,6 +8,7 @@
 int main(void)
 {
 	char *lineptr = NULL;
+
 	atexit(clean_up);
 	signal(SIGINT, sig_int_handler);
 
