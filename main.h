@@ -11,7 +11,6 @@
 #include <fcntl.h>
 #include <signal.h>
 #include <limits.h>
-
 #define BUFSIZE 1024
 #define TOK_BUFSIZE 128
 #define TOK_DELIM " \t\r\n\a"
@@ -39,7 +38,7 @@ typedef struct data
 	int counter;
 	char **_environ;
 	char *pid;
-} data_shell;
+} runtime;
 
 /**
  * struct sep_list_s - single linked list
@@ -51,7 +50,7 @@ typedef struct sep_list_s
 {
 	char separator;
 	struct sep_list_s *next;
-} sep_list;
+} seperator;
 
 /**
  * struct line_list_s - single linked list
@@ -63,7 +62,7 @@ typedef struct line_list_s
 {
 	char *line;
 	struct line_list_s *next;
-} line_list;
+} cmd_line;
 
 /**
  * struct r_var_list - single linked list
@@ -79,7 +78,7 @@ typedef struct r_var_list
 	char *val;
 	int len_val;
 	struct r_var_list *next;
-} r_var;
+} var_list;
 
 /**
  * struct builtin_s - Builtin struct for command args.
@@ -90,17 +89,17 @@ typedef struct builtin_s
 {
 	char *name;
 	int (*f)(data_shell *datash);
-} builtin_t;
+} builtin_c;
 
 /* aux_lists.c */
-sep_list *add_sep_node_end(sep_list **head, char sep);
-void free_sep_list(sep_list **head);
-line_list *add_line_node_end(line_list **head, char *line);
-void free_line_list(line_list **head);
+seperator *add_sep_node_end(seperator **head, char sep);
+void free_sep_list(seperator **head);
+cmd_line *add_line_node_end(cmd_line **head, char *line);
+void free_line_list(cmd_line **head);
 
 /* aux_lists2.c */
-r_var *add_rvar_node(r_var **head, int lvar, char *var, int lval);
-void free_rvar_list(r_var **head);
+var_list *add_rvar_node(var_list **head, int lvar, char *var, int lval);
+void free_rvar_list(var_list **head);
 
 /* aux_str functions */
 char *_strcat(char *dest, const char *src);
@@ -132,63 +131,63 @@ void print_syntax_error(data_shell *datash, char *input, int i, int bool);
 int check_syntax_error(data_shell *datash, char *input);
 
 /* shell_loop.c */
-char *without_comment(char *in);
-void shell_loop(data_shell *datash);
+char *remove_comment(char *str);
+void inf_loop(data_shell *datash);
 
 /* read_line.c */
 char *read_line(int *i_eof);
 
 /* split.c */
 char *swap_char(char *input, int bool);
-void add_nodes(sep_list **head_s, line_list **head_l, char *input);
-void go_next(sep_list **list_s, line_list **list_l, data_shell *datash);
-int split_commands(data_shell *datash, char *input);
+void add_nodes(seperator **head_s, cmd_line **head_l, char *input);
+void go_next(seperator **list_s, cmd_line **list_l, runtime *datash);
+int split_commands(runtime *datash, char *input);
 char **split_line(char *input);
 
 /* rep_var.c */
-void check_env(r_var **h, char *in, data_shell *data);
+void check_env(r_var **h, char *in, runtime *data);
 int check_vars(r_var **h, char *in, char *st, data_shell *data);
-char *replaced_input(r_var **head, char *input, char *new_input, int nlen);
-char *rep_var(char *input, data_shell *datash);
+char *replaced_input(var_list **head, char *input, char *new_input, int nlen);
+char *rep_var(char *input, runtime *datash);
 
 /* get_line.c */
 void bring_line(char **lineptr, size_t *n, char *buffer, size_t j);
 ssize_t get_line(char **lineptr, size_t *n, FILE *stream);
 
 /* exec_line */
-int exec_line(data_shell *datash);
+int exec_line(runtime *datash);
 
 /* cmd_exec.c */
 int is_cdir(char *path, int *i);
 char *_which(char *cmd, char **_environ);
-int is_executable(data_shell *datash);
-int check_error_cmd(char *dir, data_shell *datash);
-int cmd_exec(data_shell *datash);
+int is_executable(runtime *datash);
+int check_error_cmd(char *dir, runtime *datash);
+int cmd_exec(runtime *datash);
 
 /* env1.c */
 char *_getenv(const char *name, char **_environ);
-int _env(data_shell *datash);
+int _env(runtime *datash);
 
 /* env2.c */
 char *copy_info(char *name, char *value);
-void set_env(char *name, char *value, data_shell *datash);
-int _setenv(data_shell *datash);
-int _unsetenv(data_shell *datash);
+void set_env(char *name, char *value, runtime *datash);
+int _setenv(runtime *datash);
+int _unsetenv(runtime *datash);
 
 /* cd.c */
-void cd_dot(data_shell *datash);
-void cd_to(data_shell *datash);
-void cd_previous(data_shell *datash);
-void cd_to_home(data_shell *datash);
+void cd_dot(runtime *datash);
+void cd_to(runtime *datash);
+void cd_previous(runtime *datash);
+void cd_to_home(runtime *datash);
 
 /* cd_shell.c */
-int cd_shell(data_shell *datash);
+int cd_shell(runtime *datash);
 
 /* get_builtin */
-int (*get_builtin(char *cmd))(data_shell *datash);
+int (*get_builtin(char *cmd))(runtime *datash);
 
 /* _exit.c */
-int exit_shell(data_shell *datash);
+int exit_shell(runtime *datash);
 
 /* aux_stdlib.c */
 int get_len(int n);
@@ -196,9 +195,9 @@ char *aux_itoa(int n);
 int _atoi(char *s);
 
 /* aux_error1.c */
-char *strcat_click(data_shell *, char *, char *, char *);
-char *error_get_cd(data_shell *datash);
-char *error_not_found(data_shell *datash);
+char *strcat_cd(runtime *, char *, char *, char *);
+char *error_get_cd(runtime *datash);
+char *error_not_found(runtime *datash);
 char *error_exit_shell(data_shell *datash);
 
 /* aux_error2.c */
