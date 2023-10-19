@@ -1,205 +1,73 @@
 #include "main.h"
 
 /**
- * main - Entrance to program
+ * free_data - frees data structure
  *
- * Return: Exit code
+ * @datash: data structure
+ * Return: no return
  */
-int main(void)
+void free_data(data_shell *datash)
 {
-	char *lineptr = NULL;
+	unsigned int i;
 
-	atexit(clean_up);
-	signal(SIGINT, sig_int_handler);
-
-	while (1)
+	for (i = 0; datash->_environ[i]; i++)
 	{
-		envstruct *head = NULL;
-		/** init_env_list(head); */
-		char *cmd;
-		char *argv[100];
-		int i = 0;
-label:
-		if (isatty(fileno(stdin)))
-			write(1, "$ ", 2);
-
-		_getline();
-
-		cmd = strtok(lineptr, " \t\n");
-
-		if (cmd == NULL)
-		{
-			free(lineptr);
-			goto label;
-		}
-
-		while (cmd != NULL)
-		{
-			argv[i] = cmd;
-			cmd = strtok(NULL, " \t\n");
-			i++;
-		}
-		argv[i] = NULL;
-
-		if (is_builtin_cmd(argv[0]) == 1)
-		{
-			exec_builtin_cmd(argv, head);
-		}
-		else if (is_builtin_cmd(argv[0]) == 0)
-		{
-			exec_executable_cmd(argv[0], argv, environ);
-		}
-		else
-		{
-			perror(" ");
-			if (lineptr != NULL)
-				free(lineptr);
-			exit(127);
-		}
-		if (lineptr != NULL)
-			free(lineptr);
+		free(datash->_environ[i]);
 	}
-	return (0);
-}
-/**
- * is_builtin_cmd - checks for lists of built-in command
- * @cmd: the command checked
- *
- * Return: 0 or 1
- */
-int is_builtin_cmd(char *cmd)
-{
-	int i = 0;
-	const char *builtins[5] = {"exit", "env", "setenv", "unsetenv", "cd"};
 
-	while (i < 5)
-	{
-		if (our_strstr(cmd, builtins[i]) == cmd)
-		{
-			return (1);
-		}
-		i++;
-	}
-	return (0);
+	free(datash->_environ);
+	free(datash->pid);
 }
 
 /**
- * exec_builtin_cmd - execute builtin commands
- * @argv: argument vector - points to arguments entered
- * @head: head of lists.
+ * set_data - Initialize data structure
  *
- * Return: void
+ * @datash: data structure
+ * @av: argument vector
+ * Return: no return
  */
-void exec_builtin_cmd(char **argv, envstruct *head)
+void set_data(data_shell *datash, char **av)
 {
-	if (our_strstr(argv[0], "exit") == argv[0])
+	unsigned int i;
+
+	datash->av = av;
+	datash->input = NULL;
+	datash->args = NULL;
+	datash->status = 0;
+	datash->counter = 1;
+
+	for (i = 0; environ[i]; i++)
+		;
+
+	datash->_environ = malloc(sizeof(char *) * (i + 1));
+
+	for (i = 0; environ[i]; i++)
 	{
-		if (argv[1] != NULL)
-			exit_cmd(atoi(argv[1]));
-		else
-			exit_cmd(0);
+		datash->_environ[i] = _strdup(environ[i]);
 	}
-	if (our_strstr(argv[0], "env") == argv[0])
-	{
-		env_cmd();
-	}
-	if (our_strstr(argv[0], "setenv") == argv[0])
-	{
-		setenv_cmd(argv, head);
-	}
-	if (our_strstr(argv[0], "unsetenv") == argv[0])
-	{
-		unsetenv_cmd(argv, head);
-	}
-	if (our_strstr(argv[0], "cd") == argv[0])
-	{
-		if (cd_cmd(argv) == -1)
-		{
-			perror("");
-		}
-	}
+
+	datash->_environ[i] = NULL;
+	datash->pid = aux_itoa(getpid());
 }
 
 /**
- * _getline - Get line conditions
+ * main - Entry point
  *
- * Return: Characters from stdin
- */
-char *_getline(void)
-{
-	char *lineptr = NULL;
-	size_t numbytes = 0, newnumbytes;
-	ssize_t linelen;
-
-	linelen = getline(&lineptr, &numbytes, stdin);
-
-	if (linelen == -1)
-	{
-		if (feof(stdin))
-		{
-			if (isatty(fileno(stdin)))
-			{
-				write(1, "\n", 1);
-			}
-			exit(0);
-		}
-		perror("");
-		exit(1);
-	}
-
-	newnumbytes = our_strcspn(lineptr, "\n");
-
-	if (lineptr[newnumbytes] == '\n')
-		lineptr[newnumbytes] = '\0';
-
-	return (lineptr);
-}
-
-
-
-
-/**
- * exec_executable_cmd - execute the executable commands
- * @cmd: command
- * @argv: argument variable
- * @envp: argument variable
+ * @ac: argument count
+ * @av: argument vector
  *
- * Return: void
+ * Return: 0 on success.
  */
-void exec_executable_cmd(char *cmd, char **argv, char **envp)
+int main(int ac, char **av)
 {
-	char *full_path;
-	pid_t child_pid;
-	int status;
+	data_shell datash;
+	(void) ac;
 
-	full_path = check_cmd(cmd);
-
-	if (full_path == NULL)
-	{
-		return;
-	}
-
-	child_pid = fork();
-
-	if (child_pid == -1)
-	{
-		perror("");
-		exit(1);
-	}
-	else if (child_pid == 0)
-	{
-		execve_cmd(full_path, argv, envp);
-	}
-	else
-	{
-		wait(&status);
-	}
-
-	if ((full_path != NULL) && (full_path != cmd))
-	{
-		free(full_path);
-		full_path = NULL;
-	}
+	signal(SIGINT, get_sigint);
+	set_data(&datash, av);
+	shell_loop(&datash);
+	free_data(&datash);
+	if (datash.status < 0)
+		return (255);
+	return (datash.status);
 }
-
-
