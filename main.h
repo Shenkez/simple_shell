@@ -48,7 +48,7 @@ typedef struct data
  */
 typedef struct sep_list_s
 {
-	char separator;
+	char separate;
 	struct sep_list_s *next;
 } seperator;
 
@@ -88,7 +88,7 @@ typedef struct r_var_list
 typedef struct builtin_s
 {
 	char *name;
-	int (*f)(data_shell *datash);
+	int (*f)(runtime *datash);
 } builtin_c;
 
 /* aux_lists.c */
@@ -127,12 +127,12 @@ void rev_string(char *s);
 int repeated_char(char *input, int i);
 int error_sep_op(char *input, int i, char last);
 int first_char(char *input, int *i);
-void print_syntax_error(data_shell *datash, char *input, int i, int bool);
-int check_syntax_error(data_shell *datash, char *input);
+void print_syntax_error(runtime *datash, char *input, int i, int bool);
+int check_syntax_error(runtime *datash, char *input);
 
 /* shell_loop.c */
 char *remove_comment(char *str);
-void inf_loop(data_shell *datash);
+void inf_loop(runtime *datash);
 
 /* read_line.c */
 char *read_line(int *i_eof);
@@ -145,8 +145,8 @@ int split_commands(runtime *datash, char *input);
 char **split_line(char *input);
 
 /* rep_var.c */
-void check_env(r_var **h, char *in, runtime *data);
-int check_vars(r_var **h, char *in, char *st, data_shell *data);
+void check_env(var_list **h, char *in, runtime *data);
+int check_vars(var_list **h, char *in, char *st, runtime *data);
 char *replaced_input(var_list **head, char *input, char *new_input, int nlen);
 char *rep_var(char *input, runtime *datash);
 
@@ -195,21 +195,21 @@ char *aux_itoa(int n);
 int _atoi(char *s);
 
 /* aux_error1.c */
-char *strcat_cd(runtime *, char *, char *, char *);
+char *strcat_click(runtime *, char *, char *, char *);
 char *error_get_cd(runtime *datash);
 char *error_not_found(runtime *datash);
-char *error_exit_shell(data_shell *datash);
+char *error_exit_shell(runtime *datash);
 
 /* aux_error2.c */
 char *error_get_alias(char **args);
-char *error_env(data_shell *datash);
+char *error_env(runtime *datash);
 char *error_syntax(char **args);
 char *error_permission(char **args);
-char *error_path_126(data_shell *datash);
+char *error_path_126(runtime *datash);
 
 
 /* get_error.c */
-int get_error(data_shell *datash, int eval);
+int get_error(runtime *datash, int eval);
 
 /* get_sigint.c */
 void get_sigint(int sig);
@@ -227,6 +227,6 @@ void aux_help_alias(void);
 void aux_help_cd(void);
 
 /* get_help.c */
-int get_help(data_shell *datash);
+int get_help(runtime *datash);
 
 #endif

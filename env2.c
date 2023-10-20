@@ -33,7 +33,7 @@ char *copy_info(char *name, char *value)
  * @datash: data structure (environ)
  * Return: no return
  */
-void set_env(char *name, char *value, data_shell *datash)
+void set_env(char *name, char *value, runtime *datash)
 {
 	int i;
 	char *var_env, *name_env;
@@ -64,7 +64,7 @@ void set_env(char *name, char *value, data_shell *datash)
  *
  * Return: 1 on success.
  */
-int _setenv(data_shell *datash)
+int _setenv(runtime *datash)
 {
 
 	if (datash->args[1] == NULL || datash->args[2] == NULL)
@@ -85,7 +85,7 @@ int _setenv(data_shell *datash)
  *
  * Return: 1 on success.
  */
-int _unsetenv(data_shell *datash)
+int _unsetenv(runtime *datash)
 {
 	char **realloc_environ;
 	char *var_env, *name_env;

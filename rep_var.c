@@ -8,7 +8,7 @@
  * @data: data structure
  * Return: no return
  */
-void check_env(r_var **h, char *in, data_shell *data)
+void check_env(var_list **h, char *in, runtime *data)
 {
 	int row, chr, j, lval;
 	char **_envr;
@@ -50,7 +50,7 @@ void check_env(r_var **h, char *in, data_shell *data)
  * @data: data structure
  * Return: no return
  */
-int check_vars(r_var **h, char *in, char *st, data_shell *data)
+int check_vars(var_list **h, char *in, char *st, runtime *data)
 {
 	int i, lst, lpd;
 
@@ -92,38 +92,38 @@ int check_vars(r_var **h, char *in, char *st, data_shell *data)
  * @nlen: new length
  * Return: replaced string
  */
-char *replaced_input(r_var **head, char *input, char *new_input, int nlen)
+char *replaced_input(var_list **head, char *input, char *new_input, int nlen)
 {
-	r_var *indx;
+	var_list *index;
 	int i, j, k;
 
-	indx = *head;
+	index = *head;
 	for (j = i = 0; i < nlen; i++)
 	{
 		if (input[j] == '$')
 		{
-			if (!(indx->len_var) && !(indx->len_val))
+			if (!(index->len_var) && !(index->len_val))
 			{
 				new_input[i] = input[j];
 				j++;
 			}
-			else if (indx->len_var && !(indx->len_val))
+			else if (index->len_var && !(index->len_val))
 			{
-				for (k = 0; k < indx->len_var; k++)
+				for (k = 0; k < index->len_var; k++)
 					j++;
 				i--;
 			}
 			else
 			{
-				for (k = 0; k < indx->len_val; k++)
+				for (k = 0; k < index->len_val; k++)
 				{
-					new_input[i] = indx->val[k];
+					new_input[i] = index->val[k];
 					i++;
 				}
-				j += (indx->len_var);
+				j += (index->len_var);
 				i--;
 			}
-			indx = indx->next;
+			index = index->next;
 		}
 		else
 		{
@@ -142,9 +142,9 @@ char *replaced_input(r_var **head, char *input, char *new_input, int nlen)
  * @datash: data structure
  * Return: replaced string
  */
-char *rep_var(char *input, data_shell *datash)
+char *rep_var(char *input, runtime *datash)
 {
-	r_var *head, *indx;
+	var_list *head, *index;
 	char *status, *new_input;
 	int olen, nlen;
 
@@ -159,13 +159,13 @@ char *rep_var(char *input, data_shell *datash)
 		return (input);
 	}
 
-	indx = head;
+	index = head;
 	nlen = 0;
 
-	while (indx != NULL)
+	while (index != NULL)
 	{
-		nlen += (indx->len_val - indx->len_var);
-		indx = indx->next;
+		nlen += (index->len_val - index->len_var);
+		index = index->next;
 	}
 
 	nlen += olen;

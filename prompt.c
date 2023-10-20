@@ -41,7 +41,7 @@ char *remove_comment(char *str)
  *
  * Return: no return.
  */
-void inf_loop(data_shell *datash)
+void inf_loop(runtime *datash)
 {
 	int loop, i_eof;
 	char *in;

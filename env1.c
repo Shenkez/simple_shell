@@ -61,7 +61,7 @@ char *_getenv(const char *name, char **_environ)
  * @datash: data relevant.
  * Return: 1 on success.
  */
-int _env(data_shell *datash)
+int _env(runtime *datash)
 {
 	int i, j;
 

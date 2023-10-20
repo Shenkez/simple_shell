@@ -51,7 +51,7 @@ char *swap_char(char *input, int bool)
  * @input: input string
  * Return: no return
  */
-void add_nodes(sep_list **head_s, line_list **head_l, char *input)
+void add_nodes(seperator **head_s, cmd_line **head_l, char *input)
 {
 	int i;
 	char *line;
@@ -87,11 +87,11 @@ void add_nodes(sep_list **head_s, line_list **head_l, char *input)
  * @datash: data structure
  * Return: no return
  */
-void go_next(sep_list **list_s, line_list **list_l, data_shell *datash)
+void go_next(seperator **list_s, cmd_line **list_l, runtime *datash)
 {
 	int loop_sep;
-	sep_list *ls_s;
-	line_list *ls_l;
+	seperator *ls_s;
+	cmd_line *ls_l;
 
 	loop_sep = 1;
 	ls_s = *list_s;
@@ -101,16 +101,16 @@ void go_next(sep_list **list_s, line_list **list_l, data_shell *datash)
 	{
 		if (datash->status == 0)
 		{
-			if (ls_s->separator == '&' || ls_s->separator == ';')
+			if (ls_s->separate == '&' || ls_s->separate == ';')
 				loop_sep = 0;
-			if (ls_s->separator == '|')
+			if (ls_s->separate == '|')
 				ls_l = ls_l->next, ls_s = ls_s->next;
 		}
 		else
 		{
-			if (ls_s->separator == '|' || ls_s->separator == ';')
+			if (ls_s->separate == '|' || ls_s->separate == ';')
 				loop_sep = 0;
-			if (ls_s->separator == '&')
+			if (ls_s->separate == '&')
 				ls_l = ls_l->next, ls_s = ls_s->next;
 		}
 		if (ls_s != NULL && !loop_sep)
@@ -129,11 +129,11 @@ void go_next(sep_list **list_s, line_list **list_l, data_shell *datash)
  * @input: input string
  * Return: 0 to exit, 1 to continue
  */
-int split_commands(data_shell *datash, char *input)
+int split_commands(runtime *datash, char *input)
 {
 
-	sep_list *head_s, *list_s;
-	line_list *head_l, *list_l;
+	seperator *head_s, *list_s;
+	cmd_line *head_l, *list_l;
 	int loop;
 
 	head_s = NULL;

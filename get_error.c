@@ -6,11 +6,11 @@
  * @eval: error value
  * Return: error
  */
-int get_error(data_shell *datash, int eval)
+int get_error(runtime *datash, int er_val)
 {
 	char *error;
 
-	switch (eval)
+	switch (er_val)
 	{
 	case -1:
 		error = error_env(datash);
@@ -35,6 +35,6 @@ int get_error(data_shell *datash, int eval)
 		free(error);
 	}
 
-	datash->status = eval;
-	return (eval);
+	datash->status = er_val;
+	return (er_val);
 }
