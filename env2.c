@@ -3,23 +3,23 @@
 /**
  * copy_info - copies info to create
  * a new env or alias
- * @name: name (env or alias)
- * @value: value (env or alias)
+ * @env_name: name. 
+ * @env_val: value.
  *
  * Return: new env or alias.
  */
-char *copy_info(char *name, char *value)
+char *copy_info(char *env_name, char *env_val)
 {
 	char *new;
-	int len_name, len_value, len;
+	int name_len, val_len, len;
 
-	len_name = _strlen(name);
-	len_value = _strlen(value);
-	len = len_name + len_value + 2;
+	name_len = tj_strlen(env_name);
+	val_len = tj_strlen(env_val);
+	len = name_len + val_len + 2;
 	new = malloc(sizeof(char) * (len));
-	_strcpy(new, name);
+	_strcpy(new, env_name);
 	_strcat(new, "=");
-	_strcat(new, value);
+	_strcat(new, env_val);
 	_strcat(new, "\0");
 
 	return (new);
@@ -40,8 +40,8 @@ void set_env(char *name, char *value, runtime *datash)
 
 	for (i = 0; datash->_environ[i]; i++)
 	{
-		var_env = _strdup(datash->_environ[i]);
-		name_env = _strtok(var_env, "=");
+		var_env = tj_strdup(datash->_environ[i]);
+		name_env = tj_strtok(var_env, "=");
 		if (_strcmp(name_env, name) == 0)
 		{
 			free(datash->_environ[i]);
@@ -99,8 +99,8 @@ int _unsetenv(runtime *datash)
 	k = -1;
 	for (i = 0; datash->_environ[i]; i++)
 	{
-		var_env = _strdup(datash->_environ[i]);
-		name_env = _strtok(var_env, "=");
+		var_env = tj_strdup(datash->_environ[i]);
+		name_env = tj_strtok(var_env, "=");
 		if (_strcmp(name_env, datash->args[1]) == 0)
 		{
 			k = i;

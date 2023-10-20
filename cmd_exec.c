@@ -38,16 +38,16 @@ char *_which(char *cmd, char **_environ)
 	path = _getenv("PATH", _environ);
 	if (path)
 	{
-		ptr_path = _strdup(path);
-		len_cmd = _strlen(cmd);
-		token_path = _strtok(ptr_path, ":");
+		ptr_path = tj_strdup(path);
+		len_cmd = tj_strlen(cmd);
+		token_path = tj_strtok(ptr_path, ":");
 		i = 0;
 		while (token_path != NULL)
 		{
 			if (is_cdir(path, &i))
 				if (stat(cmd, &st) == 0)
 					return (cmd);
-			len_dir = _strlen(token_path);
+			len_dir = tj_strlen(token_path);
 			dir = malloc(len_dir + len_cmd + 2);
 			_strcpy(dir, token_path);
 			_strcat(dir, "/");
@@ -59,7 +59,7 @@ char *_which(char *cmd, char **_environ)
 				return (dir);
 			}
 			free(dir);
-			token_path = _strtok(NULL, ":");
+			token_path = tj_strtok(NULL, ":");
 		}
 		free(ptr_path);
 		if (stat(cmd, &st) == 0)

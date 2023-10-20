@@ -14,8 +14,8 @@ char *error_env(runtime *datash)
 
 	ver_str = aux_itoa(datash->counter);
 	msg = ": Unable to add/remove from environment\n";
-	length = _strlen(datash->av[0]) + _strlen(ver_str);
-	length += _strlen(datash->args[0]) + _strlen(msg) + 4;
+	length = tj_strlen(datash->av[0]) + tj_strlen(ver_str);
+	length += tj_strlen(datash->args[0]) + tj_strlen(msg) + 4;
 	error = malloc(sizeof(char) * (length + 1));
 	if (error == 0)
 	{
@@ -48,8 +48,8 @@ char *error_path_126(runtime *datash)
 	char *error;
 
 	tj_var_str = aux_itoa(datash->counter);
-	tj_len= _strlen(datash->av[0]) + _strlen(tj_var_str);
-	tj_len += _strlen(datash->args[0]) + 24;
+	tj_len= tj_strlen(datash->av[0]) + tj_strlen(tj_var_str);
+	tj_len += tj_strlen(datash->args[0]) + 24;
 	error = malloc(sizeof(char) * (tj_len + 1));
 	if (error == 0)
 	{

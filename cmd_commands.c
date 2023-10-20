@@ -13,7 +13,7 @@ void cd_dot(runtime *datash)
 	char *dir, *cp_pwd, *cp_strtok_pwd;
 
 	getcwd(pwd, sizeof(pwd));
-	cp_pwd = _strdup(pwd);
+	cp_pwd = tj_strdup(pwd);
 	set_env("OLDPWD", cp_pwd, datash);
 	dir = datash->args[1];
 	if (_strcmp(".", dir) == 0)
@@ -28,14 +28,14 @@ void cd_dot(runtime *datash)
 		return;
 	}
 	cp_strtok_pwd = cp_pwd;
-	rev_string(cp_strtok_pwd);
-	cp_strtok_pwd = _strtok(cp_strtok_pwd, "/");
+	str_rev(cp_strtok_pwd);
+	cp_strtok_pwd = tj_strtok(cp_strtok_pwd, "/");
 	if (cp_strtok_pwd != NULL)
 	{
-		cp_strtok_pwd = _strtok(NULL, "\0");
+		cp_strtok_pwd = tj_strtok(NULL, "\0");
 
 		if (cp_strtok_pwd != NULL)
-			rev_string(cp_strtok_pwd);
+			str_rev(cp_strtok_pwd);
 	}
 	if (cp_strtok_pwd != NULL)
 	{
@@ -72,10 +72,10 @@ void cd_to(runtime *datash)
 		return;
 	}
 
-	cp_pwd = _strdup(pwd);
+	cp_pwd = tj_strdup(pwd);
 	set_env("OLDPWD", cp_pwd, datash);
 
-	cp_dir = _strdup(dir);
+	cp_dir = tj_strdup(dir);
 	set_env("PWD", cp_dir, datash);
 
 	free(cp_pwd);
@@ -98,14 +98,14 @@ void cd_previous(runtime *datash)
 	char *p_pwd, *p_oldpwd, *cp_pwd, *cp_oldpwd;
 
 	getcwd(pwd, sizeof(pwd));
-	cp_pwd = _strdup(pwd);
+	cp_pwd = tj_strdup(pwd);
 
 	p_oldpwd = _getenv("OLDPWD", datash->_environ);
 
 	if (p_oldpwd == NULL)
 		cp_oldpwd = cp_pwd;
 	else
-		cp_oldpwd = _strdup(p_oldpwd);
+		cp_oldpwd = tj_strdup(p_oldpwd);
 
 	set_env("OLDPWD", cp_pwd, datash);
 
@@ -116,7 +116,7 @@ void cd_previous(runtime *datash)
 
 	p_pwd = _getenv("PWD", datash->_environ);
 
-	write(STDOUT_FILENO, p_pwd, _strlen(p_pwd));
+	write(STDOUT_FILENO, p_pwd, tj_strlen(p_pwd));
 	write(STDOUT_FILENO, "\n", 1);
 
 	free(cp_pwd);
@@ -140,7 +140,7 @@ void cd_to_home(runtime *datash)
 	char pwd[PATH_MAX];
 
 	getcwd(pwd, sizeof(pwd));
-	p_pwd = _strdup(pwd);
+	p_pwd = tj_strdup(pwd);
 
 	home = _getenv("HOME", datash->_environ);
 

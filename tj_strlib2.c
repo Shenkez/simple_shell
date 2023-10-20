@@ -1,54 +1,54 @@
 #include "main.h"
 
 /**
- * _strdup - duplicates a str in the heap memory.
- * @s: Type char pointer str
- * Return: duplicated str
+ * tj_strdup - a func that duplicates a string.
+ * @str1: a pointer to the first string.
+ * Return: the duplicated string str2.
  */
-char *_strdup(const char *s)
+char *tj_strdup(const char *str1)
 {
-	char *new;
+	char *str2;
 	size_t len;
 
-	len = _strlen(s);
-	new = malloc(sizeof(char) * (len + 1));
-	if (new == NULL)
+	len = tj_strlen(str1);
+	str2 = malloc(sizeof(char) * (len + 1));
+	if (str2 == NULL)
 		return (NULL);
-	_memcpy(new, s, len + 1);
-	return (new);
+	_memcpy(str2, str1, len + 1);
+	return (str2);
 }
 
 /**
- * _strlen - Returns the lenght of a string.
- * @s: Type char pointer
- * Return: Always 0.
+ * tj_strlen - calculates the lenght of a string.
+ * @str: a pointer to the str whose length is to be calculated.
+ * Return: returns the strlen.
  */
-int _strlen(const char *s)
+int tj_strlen(const char *str)
 {
 	int len;
 
-	for (len = 0; s[len] != 0; len++)
+	for (len = 0; str[len] != 0; len++)
 	{
 	}
 	return (len);
 }
 
 /**
- * cmp_chars - compare chars of strings
- * @str: input string.
- * @delim: delimiter.
+ * tj_cmp_chars - it compares chars of strings.
+ * @strn: the input str.
+ * @del: delimiter.
  *
- * Return: 1 if are equals, 0 if not.
+ * Return: returns 1 if equal, 0 if not.
  */
-int cmp_chars(char str[], const char *delim)
+int tj_cmp_chars(char strn[], const char *del)
 {
 	unsigned int i, j, k;
 
-	for (i = 0, k = 0; str[i]; i++)
+	for (i = 0, k = 0; strn[i]; i++)
 	{
-		for (j = 0; delim[j]; j++)
+		for (j = 0; del[j]; j++)
 		{
-			if (str[i] == delim[j])
+			if (strn[i] == del[j])
 			{
 				k++;
 				break;
@@ -61,68 +61,66 @@ int cmp_chars(char str[], const char *delim)
 }
 
 /**
- * _strtok - splits a string by some delimiter.
- * @str: input string.
- * @delim: delimiter.
+ * tj_strtok - seperate strings based on a delimiter.
+ * @strn: string to be tokenize.
+ * @del: the delimiter.
  *
- * Return: string splited.
+ * Return: returns splited str.
  */
-char *_strtok(char str[], const char *delim)
+char *tj_strtok(char strn[], const char *del)
 {
-	static char *splitted, *str_end;
-	char *str_start;
+	char *s_start;
+	static char *splitt, *s_end;
 	unsigned int i, bool;
 
-	if (str != NULL)
+	if (strn != NULL)
 	{
-		if (cmp_chars(str, delim))
+		if (tj_cmp_chars(strn, del))
 			return (NULL);
-		splitted = str; /*Store first address*/
-		i = _strlen(str);
-		str_end = &str[i]; /*Store last address*/
+		splitt = strn;
+		i = tj_strlen(strn);
+		s_end = &strn[i];
 	}
-	str_start = splitted;
-	if (str_start == str_end) /*Reaching the end*/
+	s_start = splitt;
+	if (s_start == s_end)
 		return (NULL);
 
-	for (bool = 0; *splitted; splitted++)
+	for (bool = 0; *splitt; splitt++)
 	{
-		/*Breaking loop finding the next token*/
-		if (splitted != str_start)
-			if (*splitted && *(splitted - 1) == '\0')
+		if (splitt != s_start)
+			if (*splitt && *(splitt - 1) == '\0')
 				break;
-		/*Replacing delimiter for null char*/
-		for (i = 0; delim[i]; i++)
+		for (i = 0; del[i]; i++)
 		{
-			if (*splitted == delim[i])
+			if (*splitt == del[i])
 			{
-				*splitted = '\0';
-				if (splitted == str_start)
-					str_start++;
+				*splitt = '\0';
+				if (splitt == s_start)
+					s_start++;
 				break;
 			}
 		}
-		if (bool == 0 && *splitted) /*Str != Delim*/
+		if (bool == 0 && *splitt)
 			bool = 1;
 	}
-	if (bool == 0) /*Str == Delim*/
+	if (bool == 0)
 		return (NULL);
-	return (str_start);
+	return (s_start);
 }
 
 /**
- * _isdigit - defines if string passed is a number
+ * tj_isdigit - checks for a digit.
  *
- * @s: input string
- * Return: 1 if string is a number. 0 in other case.
+ * @str: string to be checked.
+ * Return: returns 1 if string is a number. else 0 .
  */
-int _isdigit(const char *s)
+int tj_isdigit(const char *str)
 {
 	unsigned int i;
 
-	for (i = 0; s[i]; i++)
+	for (i = 0; str[i]; i++)
 	{
-		if (s[i] < 48 || s[i] > 57)
+		if (str[i] < 48 || str[i] > 57)
 			return (0);
 	}
 	return (1);

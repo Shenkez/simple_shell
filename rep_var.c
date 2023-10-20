@@ -20,7 +20,7 @@ void check_env(var_list **h, char *in, runtime *data)
 		{
 			if (_envr[row][chr] == '=')
 			{
-				lval = _strlen(_envr[row] + chr + 1);
+				lval = tj_strlen(_envr[row] + chr + 1);
 				add_rvar_node(h, j, _envr[row] + chr + 1, lval);
 				return;
 			}
@@ -54,8 +54,8 @@ int check_vars(var_list **h, char *in, char *st, runtime *data)
 {
 	int i, lst, lpd;
 
-	lst = _strlen(st);
-	lpd = _strlen(data->pid);
+	lst = tj_strlen(st);
+	lpd = tj_strlen(data->pid);
 
 	for (i = 0; in[i]; i++)
 	{

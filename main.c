@@ -43,7 +43,7 @@ void set_data(runtime *datash, char **av)
 
 	for (i = 0; environ[i]; i++)
 	{
-		datash->_environ[i] = _strdup(environ[i]);
+		datash->_environ[i] = tj_strdup(environ[i]);
 	}
 
 	datash->_environ[i] = NULL;

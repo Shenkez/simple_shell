@@ -57,11 +57,11 @@ char *error_get_cd(runtime *datash)
 	else
 	{
 		msg = ": can't cd to ";
-		len_id = _strlen(datash->args[1]);
+		len_id = tj_strlen(datash->args[1]);
 	}
 
-	length = _strlen(datash->av[0]) + _strlen(datash->args[0]);
-	length += _strlen(ver_str) + _strlen(msg) + len_id + 5;
+	length = tj_strlen(datash->av[0]) + tj_strlen(datash->args[0]);
+	length += tj_strlen(ver_str) + tj_strlen(msg) + len_id + 5;
 	error = malloc(sizeof(char) * (length + 1));
 
 	if (error == 0)
@@ -89,8 +89,8 @@ char *error_not_found(runtime *datash)
 	char *_var_str;
 
 	_var_str = aux_itoa(datash->counter);
-	len_ = _strlen(datash->av[0]) + _strlen(_var_str);
-	len_ += _strlen(datash->args[0]) + 16;
+	len_ = tj_strlen(datash->av[0]) + tj_strlen(_var_str);
+	len_ += tj_strlen(datash->args[0]) + 16;
 	error = malloc(sizeof(char) * (len_ + 1));
 	if (error == 0)
 	{
@@ -122,8 +122,8 @@ char *error_exit_shell(runtime *datash)
 	char *var_str;
 
 	var_str = aux_itoa(datash->counter);
-	_length = _strlen(datash->av[0]) + _strlen(var_str);
-	_length += _strlen(datash->args[0]) + _strlen(datash->args[1]) + 23;
+	_length = tj_strlen(datash->av[0]) + tj_strlen(var_str);
+	_length += tj_strlen(datash->args[0]) + tj_strlen(datash->args[1]) + 23;
 	error = malloc(sizeof(char) * (_length + 1));
 	if (error == 0)
 	{
