@@ -114,15 +114,14 @@ void _memcpy(void *newptr, const void *ptr, unsigned int size);
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 char **_reallocdp(char **ptr, unsigned int old_size, unsigned int new_size);
 
-/* aux_str2.c */
-char *_strdup(const char *s);
-int _strlen(const char *s);
-int cmp_chars(char str[], const char *delim);
-char *_strtok(char str[], const char *delim);
-int _isdigit(const char *s);
 
-/* aux_str3.c */
-void rev_string(char *s);
+int tj_isdigit(const char *str);
+char *tj_strtok(char strn[], const char *del);
+int tj_cmp_chars(char strn[], const char *del);
+char *tj_strdup(const char *str1);
+int tj_strlen(const char *str);
+
+void str_rev(char *str);
 
 /* check_syntax_error.c */
 int repeated_char(char *input, int i);
@@ -131,7 +130,6 @@ int first_char(char *input, int *i);
 void print_syntax_error(runtime *datash, char *input, int i, int bool);
 int check_syntax_error(runtime *datash, char *input);
 
-/* shell_loop.c */
 char *remove_comment(char *str);
 void inf_loop(runtime *datash);
 
