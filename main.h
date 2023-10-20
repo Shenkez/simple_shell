@@ -101,12 +101,13 @@ void free_line_list(cmd_line **head);
 var_list *add_rvar_node(var_list **head, int lvar, char *var, int lval);
 void free_rvar_list(var_list **head);
 
-/* aux_str functions */
-char *_strcat(char *dest, const char *src);
-char *_strcpy(char *dest, char *src);
-int _strcmp(char *s1, char *s2);
-char *_strchr(char *s, char c);
-int _strspn(char *s, char *accept);
+
+char *tj_strcat(char *destination, const char *sc);
+char *tj_strcpy(char *dest_str, char *src_str);
+int tj_strcmp(char *s1, char *s2);
+char *tj_strchr(char *s, char ch);
+int tj_strspn(char *str, char *accept);
+
 
 /* aux_mem.c */
 void _memcpy(void *newptr, const void *ptr, unsigned int size);
@@ -138,7 +139,7 @@ void inf_loop(runtime *datash);
 char *read_line(int *i_eof);
 
 /* split.c */
-char *swap_char(char *input, int bool);
+char *swap_chr(char *input, int bool);
 void add_nodes(seperator **head_s, cmd_line **head_l, char *input);
 void go_next(seperator **list_s, cmd_line **list_l, runtime *datash);
 int split_commands(runtime *datash, char *input);
@@ -175,10 +176,10 @@ int _setenv(runtime *datash);
 int _unsetenv(runtime *datash);
 
 /* cd.c */
-void cd_dot(runtime *datash);
-void cd_to(runtime *datash);
-void cd_previous(runtime *datash);
-void cd_to_home(runtime *datash);
+void chng_dot(runtime *datash);
+void chng_to(runtime *datash);
+void chng_previous(runtime *datash);
+void chng_to_home(runtime *datash);
 
 /* cd_shell.c */
 int cd_shell(runtime *datash);

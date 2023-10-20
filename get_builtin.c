@@ -1,8 +1,8 @@
 #include "main.h"
 
 /**
- * get_builtin - builtin that pais the command in the arg
- * @cmd: command
+ * get_builtin - builtin that pais the cmd in the arg
+ * @cmd: command for  given fnct
  * Return: function pointer of the builtin command
  */
 int (*get_builtin(char *cmd))(runtime *)
@@ -20,7 +20,7 @@ int (*get_builtin(char *cmd))(runtime *)
 
 	for (i = 0; builtin[i].name; i++)
 	{
-		if (_strcmp(builtin[i].name, cmd) == 0)
+		if (tj_strcmp(builtin[i].name, cmd) == 0)
 			break;
 	}
 

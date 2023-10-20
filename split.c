@@ -7,7 +7,7 @@
  * @bool: type of swap
  * Return: swapped string
  */
-char *swap_char(char *input, int bool)
+char *swap_chr(char *input, int bool)
 {
 	int i;
 
@@ -56,7 +56,7 @@ void add_nodes(seperator **head_s, cmd_line **head_l, char *input)
 	int i;
 	char *line;
 
-	input = swap_char(input, 0);
+	input = swap_chr(input, 0);
 
 	for (i = 0; input[i]; i++)
 	{
@@ -72,7 +72,7 @@ void add_nodes(seperator **head_s, cmd_line **head_l, char *input)
 
 	line = _strtok(input, ";|&");
 	do {
-		line = swap_char(line, 1);
+		line = swap_chr(line, 1);
 		add_line_node_end(head_l, line);
 		line = _strtok(NULL, ";|&");
 	} while (line != NULL);

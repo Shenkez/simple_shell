@@ -17,10 +17,10 @@ char *copy_info(char *name, char *value)
 	len_value = _strlen(value);
 	len = len_name + len_value + 2;
 	new = malloc(sizeof(char) * (len));
-	_strcpy(new, name);
-	_strcat(new, "=");
-	_strcat(new, value);
-	_strcat(new, "\0");
+	tj_strcpy(new, name);
+	tj_strcat(new, "=");
+	tj_strcat(new, value);
+	tj_strcat(new, "\0");
 
 	return (new);
 }
@@ -42,7 +42,7 @@ void set_env(char *name, char *value, runtime *datash)
 	{
 		var_env = _strdup(datash->_environ[i]);
 		name_env = _strtok(var_env, "=");
-		if (_strcmp(name_env, name) == 0)
+		if (tj_strcmp(name_env, name) == 0)
 		{
 			free(datash->_environ[i]);
 			datash->_environ[i] = copy_info(name_env, value);
@@ -101,7 +101,7 @@ int _unsetenv(runtime *datash)
 	{
 		var_env = _strdup(datash->_environ[i]);
 		name_env = _strtok(var_env, "=");
-		if (_strcmp(name_env, datash->args[1]) == 0)
+		if (tj_strcmp(name_env, datash->args[1]) == 0)
 		{
 			k = i;
 		}

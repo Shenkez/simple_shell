@@ -24,13 +24,13 @@ char *error_env(runtime *datash)
 		return (NULL);
 	}
 
-	_strcpy(error, datash->av[0]);
-	_strcat(error, ": ");
-	_strcat(error, ver_str);
-	_strcat(error, ": ");
-	_strcat(error, datash->args[0]);
-	_strcat(error, msg);
-	_strcat(error, "\0");
+	tj_strcpy(error, datash->av[0]);
+	tj_strcat(error, ": ");
+	tj_strcat(error, ver_str);
+	tj_strcat(error, ": ");
+	tj_strcat(error, datash->args[0]);
+	tj_strcat(error, msg);
+	tj_strcat(error, "\0");
 	free(ver_str);
 
 	return (error);
@@ -57,13 +57,13 @@ char *error_path_126(runtime *datash)
 		free(tj_var_str);
 		return (NULL);
 	}
-	_strcpy(error, datash->av[0]);
-	_strcat(error, ": ");
-	_strcat(error, tj_var_str);
-	_strcat(error, ": ");
-	_strcat(error, datash->args[0]);
-	_strcat(error, ": Permission denied\n");
-	_strcat(error, "\0");
+	tj_strcpy(error, datash->av[0]);
+	tj_strcat(error, ": ");
+	tj_strcat(error, tj_var_str);
+	tj_strcat(error, ": ");
+	tj_strcat(error, datash->args[0]);
+	tj_strcat(error, ": Permission denied\n");
+	tj_strcat(error, "\0");
 	free(tj_var_str);
 	return (error);
 }
