@@ -1,13 +1,12 @@
 #include "main.h"
 
 /**
- * cd_dot - changes to the parent directory
- *
- * @datash: data relevant (environ)
+ * chng_dot - make changes to the primary directory
+ * @datash: real data relevant (environ)
  *
  * Return: no return
  */
-void cd_dot(runtime *datash)
+void chng_dot(runtime *datash)
 {
 	char pwd[PATH_MAX];
 	char *dir, *cp_pwd, *cp_strtok_pwd;
@@ -16,13 +15,13 @@ void cd_dot(runtime *datash)
 	cp_pwd = tj_strdup(pwd);
 	set_env("OLDPWD", cp_pwd, datash);
 	dir = datash->args[1];
-	if (_strcmp(".", dir) == 0)
+	if (tj_strcmp(".", dir) == 0)
 	{
 		set_env("PWD", cp_pwd, datash);
 		free(cp_pwd);
 		return;
 	}
-	if (_strcmp("/", cp_pwd) == 0)
+	if (tj_strcmp("/", cp_pwd) == 0)
 	{
 		free(cp_pwd);
 		return;
@@ -52,13 +51,13 @@ void cd_dot(runtime *datash)
 }
 
 /**
- * cd_to - changes to a directory given
+ * chng_to - commit changes to a directory given
  * by the user
  *
  * @datash: data relevant (directories)
  * Return: no return
  */
-void cd_to(runtime *datash)
+void chng_to(runtime *datash)
 {
 	char pwd[PATH_MAX];
 	char *dir, *cp_pwd, *cp_dir;
@@ -87,12 +86,12 @@ void cd_to(runtime *datash)
 }
 
 /**
- * cd_previous - changes to the previous directory
+ * chng_previous - commit changes to the previous directory
  *
- * @datash: data relevant (environ)
+ * @datash: data relevant ie envr
  * Return: no return
  */
-void cd_previous(runtime *datash)
+void chng_previous(runtime *datash)
 {
 	char pwd[PATH_MAX];
 	char *p_pwd, *p_oldpwd, *cp_pwd, *cp_oldpwd;
@@ -129,12 +128,12 @@ void cd_previous(runtime *datash)
 }
 
 /**
- * cd_to_home - changes to home directory
+ * chng_to_home - commit changes to the home directory
  *
- * @datash: data relevant (environ)
+ * @datash: data relevant environ
  * Return: no return
  */
-void cd_to_home(runtime *datash)
+void chng_to_home(runtime *datash)
 {
 	char *p_pwd, *home;
 	char pwd[PATH_MAX];
@@ -166,10 +165,10 @@ void cd_to_home(runtime *datash)
 
 
 /**
- * cd_shell - changes current directory
+ * chng_shell - commit changes current directory
  *
  * @datash: data relevant
- * Return: 1 on success
+ * Return: return 1 on success
  */
 int cd_shell(runtime *datash)
 {
@@ -180,30 +179,30 @@ int cd_shell(runtime *datash)
 
 	if (dir != NULL)
 	{
-		tj_home = _strcmp("$HOME", dir);
-		tj_home2 = _strcmp("~", dir);
-		tj_dash = _strcmp("--", dir);
+		tj_home = tj_strcmp("$HOME", dir);
+		tj_home2 = tj_strcmp("~", dir);
+		tj_dash = tj_strcmp("--", dir);
 	}
 
 	if (dir == NULL || !tj_home || !tj_home2 || !tj_dash)
 	{
-		cd_to_home(datash);
+		chng_to_home(datash);
 		return (1);
 	}
 
-	if (_strcmp("-", dir) == 0)
+	if (tj_strcmp("-", dir) == 0)
 	{
-		cd_previous(datash);
+		chng_previous(datash);
 		return (1);
 	}
 
-	if (_strcmp(".", dir) == 0 || _strcmp("..", dir) == 0)
+	if (tj_strcmp(".", dir) == 0 || tj_strcmp("..", dir) == 0)
 	{
-		cd_dot(datash);
+		chng_dot(datash);
 		return (1);
 	}
 
-	cd_to(datash);
+	chng_to(datash);
 
 	return (1);
 }

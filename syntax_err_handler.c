@@ -132,13 +132,13 @@ void print_syntax_error(runtime *datash, char *input, int i, int bool)
 		free(counter);
 		return;
 	}
-	_strcpy(error, datash->av[0]);
-	_strcat(error, ": ");
-	_strcat(error, counter);
-	_strcat(error, msg2);
-	_strcat(error, msg);
-	_strcat(error, msg3);
-	_strcat(error, "\0");
+	tj_strcpy(error, datash->av[0]);
+	tj_strcat(error, ": ");
+	tj_strcat(error, counter);
+	tj_strcat(error, msg2);
+	tj_strcat(error, msg);
+	tj_strcat(error, msg3);
+	tj_strcat(error, "\0");
 
 	write(STDERR_FILENO, error, length);
 	free(error);

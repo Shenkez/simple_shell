@@ -1,99 +1,101 @@
 #include "main.h"
 
 /**
- * _strcat - concatenate two strings
- * @dest: char pointer the dest of the copied str
- * @src: const char pointer the source of str
- * Return: the dest
+ * tj_strcat - func to concatenate two strings
+ * @destination: pointer to dest str.
+ * @sc: pointer to source str.
+ * Return: the destination.
  */
-char *_strcat(char *dest, const char *src)
+char *tj_strcat(char *destination, const char *sc)
 {
 	int i;
 	int j;
 
-	for (i = 0; dest[i] != '\0'; i++)
+	for (i = 0; destination[i] != '\0'; i++)
 		;
 
-	for (j = 0; src[j] != '\0'; j++)
+	for (j = 0; sc[j] != '\0'; j++)
 	{
-		dest[i] = src[j];
+		destination[i] = sc[j];
 		i++;
 	}
 
-	dest[i] = '\0';
-	return (dest);
+	destination[i] = '\0';
+	return (destination);
 }
 /**
- * *_strcpy - Copies the string pointed to by src.
- * @dest: Type char pointer the dest of the copied str
- * @src: Type char pointer the source of str
- * Return: the dest.
+ * *tj_strcpy - Copies string .
+ * @dest_str: pointer to the dest str.
+ * @src_str: pointer to the source str
+ * Return: destination str.
  */
-char *_strcpy(char *dest, char *src)
+char *tj_strcpy(char *dest_str, char *src_str)
 {
 
-	size_t a;
+	size_t i;
 
-	for (a = 0; src[a] != '\0'; a++)
+	for (i = 0; src_str[i] != '\0'; i++)
 	{
-		dest[a] = src[a];
+		dest_str[i] = src_str[i];
 	}
-	dest[a] = '\0';
+	dest_str[i] = '\0';
 
-	return (dest);
+	return (dest_str);
 }
 /**
- * _strcmp - Function that compares two strings.
- * @s1: type str compared
- * @s2: type str compared
- * Return: Always 0.
+ * tj_strcmp - a function that compares two strings.
+ * @s1: first str to be compared
+ * @s2: second str to be compared
+ * Return: zero.
  */
-int _strcmp(char *s1, char *s2)
+int tj_strcmp(char *s1, char *s2)
 {
-	int i;
+	int k;
 
-	for (i = 0; s1[i] == s2[i] && s1[i]; i++)
-		;
+	while (s1[k] && s1[k] == s2[k])
+	{
+		k++;
+	}
 
-	if (s1[i] > s2[i])
+	if (s1[k] > s2[k])
 		return (1);
-	if (s1[i] < s2[i])
+	if (s1[k] < s2[k])
 		return (-1);
 	return (0);
 }
 /**
- * _strchr - locates a character in a string,
- * @s: string.
- * @c: character.
- * Return: the pointer to the first occurrence of the character c.
+ * tj_strchr - locates a char in a string,
+ * @s: input string.
+ * @ch: char to be located.
+ * Return:  pointer to the first occurrence of the character c.
  */
-char *_strchr(char *s, char c)
+char *tj_strchr(char *s, char ch)
 {
 	unsigned int i = 0;
 
 	for (; *(s + i) != '\0'; i++)
-		if (*(s + i) == c)
+		if (*(s + i) == ch)
 			return (s + i);
-	if (*(s + i) == c)
+	if (*(s + i) == ch)
 		return (s + i);
 	return ('\0');
 }
 /**
- * _strspn - gets the length of a prefix substring.
- * @s: initial segment.
+ * tj_strspn - return the length of a  substring.
+ * @str: beginnig.
  * @accept: accepted bytes.
- * Return: the number of accepted bytes.
+ * Return: returns the  accepted bytes.
  */
-int _strspn(char *s, char *accept)
+int tj_strspn(char *str, char *accept)
 {
 	int i, j, bool;
 
-	for (i = 0; *(s + i) != '\0'; i++)
+	for (i = 0; *(str + i) != '\0'; i++)
 	{
 		bool = 1;
 		for (j = 0; *(accept + j) != '\0'; j++)
 		{
-			if (*(s + i) == *(accept + j))
+			if (*(str + i) == *(accept + j))
 			{
 				bool = 0;
 				break;

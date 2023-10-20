@@ -13,28 +13,28 @@ char *strcat_click(runtime *datash, char *pr_msg, char *output_msg, char *line_c
 {
 	char *flag;
 
-	_strcpy(output_msg, datash->av[0]);
-	_strcat(output_msg, ": ");
-	_strcat(output_msg, line_count);
-	_strcat(output_msg, ": ");
-	_strcat(output_msg, datash->args[0]);
-	_strcat(output_msg,pr_msg);
+	tj_strcpy(output_msg, datash->av[0]);
+	tj_strcat(output_msg, ": ");
+	tj_strcat(output_msg, line_count);
+	tj_strcat(output_msg, ": ");
+	tj_strcat(output_msg, datash->args[0]);
+	tj_strcat(output_msg,pr_msg);
 	if (datash->args[1][0] == '-')
 	{
 		flag = malloc(3);
 		flag[0] = '-';
 		flag[1] = datash->args[1][1];
 		flag[2] = '\0';
-		_strcat(output_msg, flag);
+		tj_strcat(output_msg, flag);
 		free(flag);
 	}
 	else
 	{
-		_strcat(output_msg, datash->args[1]);
+		tj_strcat(output_msg, datash->args[1]);
 	}
 
-	_strcat(output_msg, "\n");
-	_strcat(output_msg, "\0");
+	tj_strcat(output_msg, "\n");
+	tj_strcat(output_msg, "\0");
 	return (output_msg);
 }
 
@@ -98,13 +98,13 @@ char *error_not_found(runtime *datash)
 		free(_var_str);
 		return (NULL);
 	}
-	_strcpy(error, datash->av[0]);
-	_strcat(error, ": ");
-	_strcat(error, _var_str);
-	_strcat(error, ": ");
-	_strcat(error, datash->args[0]);
-	_strcat(error, ": not found\n");
-	_strcat(error, "\0");
+	tj_strcpy(error, datash->av[0]);
+	tj_strcat(error, ": ");
+	tj_strcat(error, _var_str);
+	tj_strcat(error, ": ");
+	tj_strcat(error, datash->args[0]);
+	tj_strcat(error, ": not found\n");
+	tj_strcat(error, "\0");
 	free(_var_str);
 	return (error);
 }
@@ -130,14 +130,14 @@ char *error_exit_shell(runtime *datash)
 		free(var_str);
 		return (NULL);
 	}
-	_strcpy(error, datash->av[0]);
-	_strcat(error, ": ");
-	_strcat(error, var_str);
-	_strcat(error, ": ");
-	_strcat(error, datash->args[0]);
-	_strcat(error, ": Illegal number: ");
-	_strcat(error, datash->args[1]);
-	_strcat(error, "\n\0");
+	tj_strcpy(error, datash->av[0]);
+	tj_strcat(error, ": ");
+	tj_strcat(error, var_str);
+	tj_strcat(error, ": ");
+	tj_strcat(error, datash->args[0]);
+	tj_strcat(error, ": Illegal number: ");
+	tj_strcat(error, datash->args[1]);
+	tj_strcat(error, "\n\0");
 	free(var_str);
 
 	return (error);

@@ -22,9 +22,9 @@ int get_error(runtime *datash, int er_val)
 		error = error_not_found(datash);
 		break;
 	case 2:
-		if (_strcmp("exit", datash->args[0]) == 0)
+		if (tj_strcmp("exit", datash->args[0]) == 0)
 			error = error_exit_shell(datash);
-		else if (_strcmp("cd", datash->args[0]) == 0)
+		else if (tj_strcmp("cd", datash->args[0]) == 0)
 			error = error_get_cd(datash);
 		break;
 	}
