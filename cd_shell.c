@@ -6,21 +6,21 @@
  * @datash: data relevant
  * Return: 1 on success
  */
-int cd_shell(data_shell *datash)
+int cd_shell(runtime *datash)
 {
 	char *dir;
-	int ishome, ishome2, isddash;
+	int tj_home, tj_home2, tj_dash;
 
 	dir = datash->args[1];
 
 	if (dir != NULL)
 	{
-		ishome = _strcmp("$HOME", dir);
-		ishome2 = _strcmp("~", dir);
-		isddash = _strcmp("--", dir);
+		tj_home = _strcmp("$HOME", dir);
+		tj_home2 = _strcmp("~", dir);
+		tj_dash = _strcmp("--", dir);
 	}
 
-	if (dir == NULL || !ishome || !ishome2 || !isddash)
+	if (dir == NULL || !tj_home || !tj_home2 || !tj_dash)
 	{
 		cd_to_home(datash);
 		return (1);

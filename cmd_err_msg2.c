@@ -5,7 +5,7 @@
  * @datash: data relevant (counter, arguments)
  * Return: error message.
  */
-char *error_env(data_shell *datash)
+char *error_env(runtime *datash)
 {
 	int length;
 	char *error;
@@ -41,29 +41,29 @@ char *error_env(data_shell *datash)
  *
  * Return: The error string.
  */
-char *error_path_126(data_shell *datash)
+char *error_path_126(runtime *datash)
 {
-	int length;
-	char *ver_str;
+	int tj_len;
+	char *tj_var_str;
 	char *error;
 
-	ver_str = aux_itoa(datash->counter);
-	length = _strlen(datash->av[0]) + _strlen(ver_str);
-	length += _strlen(datash->args[0]) + 24;
-	error = malloc(sizeof(char) * (length + 1));
+	tj_var_str = aux_itoa(datash->counter);
+	tj_len= _strlen(datash->av[0]) + _strlen(tj_var_str);
+	tj_len += _strlen(datash->args[0]) + 24;
+	error = malloc(sizeof(char) * (tj_len + 1));
 	if (error == 0)
 	{
 		free(error);
-		free(ver_str);
+		free(tj_var_str);
 		return (NULL);
 	}
 	_strcpy(error, datash->av[0]);
 	_strcat(error, ": ");
-	_strcat(error, ver_str);
+	_strcat(error, tj_var_str);
 	_strcat(error, ": ");
 	_strcat(error, datash->args[0]);
 	_strcat(error, ": Permission denied\n");
 	_strcat(error, "\0");
-	free(ver_str);
+	free(tj_var_str);
 	return (error);
 }
