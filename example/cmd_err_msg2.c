@@ -48,7 +48,7 @@ char *error_path_126(runtime *datash)
 	char *error;
 
 	tj_var_str = aux_itoa(datash->counter);
-	tj_len = tj_strlen(datash->av[0]) + tj_strlen(tj_var_str);
+	tj_len= tj_strlen(datash->av[0]) + tj_strlen(tj_var_str);
 	tj_len += tj_strlen(datash->args[0]) + 24;
 	error = malloc(sizeof(char) * (tj_len + 1));
 	if (error == 0)

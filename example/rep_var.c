@@ -5,11 +5,11 @@
  * variable is an env variable
  *
  * @h: head pointer of linked list
- * @n: the input string
+ * @in_str: the input string
  * @data: var of data structure
  * Return: none
  */
-void checks_env(var_list **h, char *n, runtime *data)
+void checks_env(var_list **h, char *in_str, runtime *data)
 {
 	int r, ch, j, val;
 	char **tj_envr;
@@ -26,16 +26,16 @@ void checks_env(var_list **h, char *n, runtime *data)
 				return;
 			}
 
-			if (n[j] == tj_envr[r][ch])
+			if (in_str[j] == tj_envr[r][ch])
 				j++;
 			else
 				break;
 		}
 	}
 
-	for (j = 0; n[j]; j++)
+	for (j = 0; in_str[j]; j++)
 	{
-		if (n[j] == ' ' || n[j] == '\t' || n[j] == ';' || n[j] == '\n')
+		if (in_str[j] == ' ' || in_str[j] == '\t' || in_str[j] == ';' || in_str[j] == '\n')
 			break;
 	}
 
@@ -137,9 +137,9 @@ char *rep_input(var_list **head, char *inp, char *new_inp, int n_len)
 }
 
 /**
- * repl_var - calls functions to replace string into vars
+ * rep_var - calls functions to replace string into vars
  *
- * @inp: input string
+ * @input: input string
  * @datash: data structure
  * Return: replaced string
  */

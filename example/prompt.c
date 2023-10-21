@@ -2,7 +2,7 @@
 /**
  * remove_comment - removes comments from an input string
  *
- * @str: input string
+ * str: input string
  * Return: input string with no comments
  */
 char *remove_comment(char *str)

@@ -3,7 +3,7 @@
 /**
  * get_error - calls the error according the builtin, syntax or permission
  * @datash: data structure that contains arguments
- * @er_val: error value
+ * @eval: error value
  * Return: error
  */
 int get_error(runtime *datash, int er_val)
