@@ -165,7 +165,7 @@ void chng_to_home(runtime *datash)
 
 
 /**
- * cd_shell - commit changes current directory
+ * chng_shell - commit changes current directory
  *
  * @datash: data relevant
  * Return: return 1 on success

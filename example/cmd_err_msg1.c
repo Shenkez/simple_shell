@@ -6,19 +6,19 @@
  * @datash: data relevant (directory)
  * @pr_msg: message to print
  * @output_msg: output message
- * @cnt: counts lines
+ * @line_count: counter lines
  * Return: output message
  */
-char *strcat_click(runtime *datash, char *pr_msg, char *output_msg, char *cnt)
+char *strcat_click(runtime *datash, char *pr_msg, char *output_msg, char *line_count)
 {
 	char *flag;
 
 	tj_strcpy(output_msg, datash->av[0]);
 	tj_strcat(output_msg, ": ");
-	tj_strcat(output_msg, cnt);
+	tj_strcat(output_msg, line_count);
 	tj_strcat(output_msg, ": ");
 	tj_strcat(output_msg, datash->args[0]);
-	tj_strcat(output_msg, pr_msg);
+	tj_strcat(output_msg,pr_msg);
 	if (datash->args[1][0] == '-')
 	{
 		flag = malloc(3);

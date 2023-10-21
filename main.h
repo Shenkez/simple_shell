@@ -143,11 +143,13 @@ void go_next(seperator **list_s, cmd_line **list_l, runtime *datash);
 int split_commands(runtime *datash, char *input);
 char **split_line(char *input);
 
-/* rep_var.c */
-void check_env(var_list **h, char *in, runtime *data);
-int check_vars(var_list **h, char *in, char *st, runtime *data);
-char *replaced_input(var_list **head, char *input, char *new_input, int nlen);
-char *rep_var(char *input, runtime *datash);
+
+void checks_env(var_list **h, char *in_str, runtime *data);
+int _check_vars(var_list **h, char *in_str, char *s, runtime *data);
+char *rep_input(var_list **head, char *inp, char *new_inp, int n_len);
+char *repl_var(char *inp, runtime *datash);
+
+
 
 /* get_line.c */
 void bring_line(char **lineptr, size_t *n, char *buffer, size_t j);
