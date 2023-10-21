@@ -58,9 +58,8 @@ void set_env(char *name, char *value, runtime *datash)
 }
 
 /**
- * _setenv - compares env variables names
- * with the name passed.
- * @datash: data relevant (env name and env value)
+ * _setenv - this compares env var names with the name passed.
+ * @datash: var data relevant from a linked list
  *
  * Return: 1 on success.
  */
@@ -79,7 +78,7 @@ int _setenv(runtime *datash)
 }
 
 /**
- * _unsetenv - deletes a environment variable
+ * _unsetenv - unsets environment variables
  *
  * @datash: data relevant (env name)
  *
