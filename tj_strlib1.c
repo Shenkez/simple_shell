@@ -52,15 +52,13 @@ int tj_strcmp(char *s1, char *s2)
 {
 	int k;
 
-	while (s1[k] && s1[k] == s2[k])
-	{
-		k++;
-		if (s1[k] > s2[k])
-			return (1);
-		if (s1[k] < s2[k])
-			return (-1);
-	}
+	for (k = 0; s1[k] == s2[k] && s1[k]; k++)
+		;
 
+	if (s1[k] > s2[k])
+		return (1);
+	if (s1[k] < s2[k])
+		return (-1);
 	return (0);
 }
 /**
